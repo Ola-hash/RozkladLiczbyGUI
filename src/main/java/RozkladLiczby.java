@@ -23,7 +23,7 @@ public class RozkladLiczby {
 
     public int[] czynnikiPierwsze(int m) throws Exception {
         if (m > tab.length) {
-            throw new Exception(m + " - jest za duża, nie utworzono sita");
+            throw new Exception(m + " - jest za duza, nie utworzono sita");
         }
         if (m < 2) {
             throw new Exception(m + " - niepoprawna liczba");
