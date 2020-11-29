@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RozkladLiczbyGUI extends JFrame  {
+public class RozkladLiczbyGUI extends JFrame {
     JLabel lRozmiarSita, lLiczbaPrzedRozkladem, lLiczbaPoRozkladzie, lWyjatek;
     JTextField tRozmiarSita, tLiczbaPrzedRozkladem, tLiczbaPoRozkladzie;
     JButton bPrzeliczSito, bPrzelicz, bWyjscie;
@@ -12,7 +12,7 @@ public class RozkladLiczbyGUI extends JFrame  {
     RozkladLiczby rozkladLiczby = null;
 
     public RozkladLiczbyGUI() {
-        setSize(400, 300);
+        setSize(550, 350);
         setTitle("Rozklad liczby na czynniki pierwsze");
         setLayout(null);
 
@@ -24,15 +24,15 @@ public class RozkladLiczbyGUI extends JFrame  {
         add(tRozmiarSita);
 
         lLiczbaPrzedRozkladem = new JLabel("Podaj liczbe do rozkladu");
-        lLiczbaPrzedRozkladem.setBounds(40, 110, 200, 20);
+        lLiczbaPrzedRozkladem.setBounds(40, 100, 200, 20);
         add(lLiczbaPrzedRozkladem);
         lLiczbaPrzedRozkladem.setVisible(false);
         tLiczbaPrzedRozkladem = new JTextField("");
-        tLiczbaPrzedRozkladem.setBounds(190, 110, 100, 20);
+        tLiczbaPrzedRozkladem.setBounds(190, 100, 100, 20);
         add(tLiczbaPrzedRozkladem);
         tLiczbaPrzedRozkladem.setVisible(false);
 
-        lLiczbaPoRozkladzie = new JLabel("Liczba po rozkaldzie");
+        lLiczbaPoRozkladzie = new JLabel("Liczba po rozkladzie");
         lLiczbaPoRozkladzie.setBounds(40, 200, 200, 20);
         add(lLiczbaPoRozkladzie);
         tLiczbaPoRozkladzie = new JTextField("");
@@ -40,32 +40,32 @@ public class RozkladLiczbyGUI extends JFrame  {
         add(tLiczbaPoRozkladzie);
 
         lWyjatek = new JLabel("");
-        lWyjatek.setBounds(115, 170, 200, 20);
+        lWyjatek.setBounds(130, 150, 200, 20);
         lWyjatek.setForeground(Color.RED);
         add(lWyjatek);
 
         bPrzeliczSito = new JButton("Przelicz sito");
-        bPrzeliczSito.setBounds(100, 70, 140, 20);
+        bPrzeliczSito.setBounds(290, 30, 130, 20);
         add(bPrzeliczSito);
         bPrzeliczSito.addActionListener(new stworzSitoListener());
-        bPrzelicz = new JButton("Przelicz");
-        bPrzelicz.setBounds(120, 140, 100, 20);
+        bPrzelicz = new JButton("Rozloz na czynniki");
+        bPrzelicz.setBounds(300, 100, 140, 20);
         add(bPrzelicz);
         bPrzelicz.setVisible(false);
-        bPrzelicz.addActionListener(new rozlozNaCzynnikiLisner());
+        bPrzelicz.addActionListener(new rozlozNaCzynnikiListener());
         bWyjscie = new JButton("Wyjscie");
-        bWyjscie.setBounds(270, 230, 100, 20);
+        bWyjscie.setBounds(300, 200, 100, 20);
         add(bWyjscie);
+        setVisibleRozkladLiczby(false);
         bWyjscie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
-
         });
     }
 
-    public void setVisible(boolean Visible) {
+    private void setVisibleRozkladLiczby(boolean Visible) {
         lLiczbaPrzedRozkladem.setVisible(true);
         tLiczbaPrzedRozkladem.setVisible(true);
         bPrzelicz.setVisible(true);
@@ -79,17 +79,16 @@ public class RozkladLiczbyGUI extends JFrame  {
             try {
                 n = Integer.parseInt(tRozmiarSita.getText());
                 rozkladLiczby = new RozkladLiczby(n);
-                setVisible(true);
+                setVisibleRozkladLiczby(true);
             } catch (NumberFormatException ex) {
                 lWyjatek.setText("To nie jest liczba");
             } catch (Exception ex) {
                 lWyjatek.setText(ex.getMessage());
             }
-
         }
     }
 
-    class rozlozNaCzynnikiLisner implements ActionListener {
+    class rozlozNaCzynnikiListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -97,8 +96,7 @@ public class RozkladLiczbyGUI extends JFrame  {
                 m = Integer.parseInt((tLiczbaPrzedRozkladem.getText()));
                 int[] result = rozkladLiczby.czynnikiPierwsze(m);
                 tLiczbaPoRozkladzie.setText(RozkladLiczbyUtil.zliczanieWystapien(result));
-            } catch (
-                    NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 lWyjatek.setText("To nie jest liczba");
             } catch (Exception ex) {
                 lWyjatek.setText(ex.getMessage());
